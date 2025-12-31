@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Request a feature for BibleTracker - We'd love to hear your ideas!">
+    <title>Feature Request - BibleTracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="BibleTracker Logo" class="logo-image">
+                <span class="logo-text">BibleTracker</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="privacy.html">Privacy</a></li>
+                <li><a href="feature-request.html" class="btn-primary">Request Feature</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="form-container">
+        <h1 style="text-align: center; margin-bottom: 1rem;">💡 Feature Request</h1>
+        <p style="text-align: center; color: var(--text-light); margin-bottom: 3rem;">
+            Have an idea to make BibleTracker better? We'd love to hear it!
+        </p>
+
+        <div id="successMessage" class="success-message">
+            ✓ Thank you! Your feature request has been submitted.
+        </div>
+
+        <form id="featureRequestForm">
+            <div class="form-group">
+                <label for="name">Your Name (Optional)</label>
+                <input type="text" id="name" name="name" placeholder="John Doe">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email (Optional)</label>
+                <input type="email" id="email" name="email" placeholder="your@email.com">
+                <small style="color: var(--text-light);">Only if you'd like us to follow up with you</small>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Category *</label>
+                <select id="category" name="category" required>
+                    <option value="">Select a category</option>
+                    <option value="reading">Reading Tracker</option>
+                    <option value="memorization">Memorization</option>
+                    <option value="themes">Themes & Design</option>
+                    <option value="reminders">Reminders & Notifications</option>
+                    <option value="sync">iCloud Sync</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="title">Feature Title *</label>
+                <input type="text" id="title" name="title" placeholder="Brief description of your idea" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Detailed Description *</label>
+                <textarea id="description" name="description" placeholder="Tell us more about your feature idea. What problem does it solve? How would it work?" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="priority">How important is this to you?</label>
+                <select id="priority" name="priority">
+                    <option value="low">Nice to have</option>
+                    <option value="medium">Would be helpful</option>
+                    <option value="high">Very important</option>
+                </select>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Feature Request</button>
+        </form>
+
+        <p style="text-align: center; color: var(--text-light); margin-top: 2rem; font-size: 0.9rem;">
+            We read every submission! While we can't implement every idea, we greatly appreciate your input.
+        </p>
+    </div>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h4>BibleTracker</h4>
+                <p>Bringing people closer to God's Word</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="mailto:yourbibletracker@gmail.com">yourbibletracker@gmail.com</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container footer-bottom">
+            <p>&copy; 2025 BibleTracker. Built with ❤️ for God's glory.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
