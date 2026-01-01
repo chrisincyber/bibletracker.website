@@ -609,6 +609,24 @@ footer {
     color: var(--text-light);
 }
 
+.idea-status {
+    padding: 0.2rem 0.6rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.idea-status-in-progress {
+    background: rgba(59, 130, 246, 0.2);
+    color: #3B82F6;
+}
+
+.idea-status-done {
+    background: rgba(16, 185, 129, 0.2);
+    color: #10B981;
+}
+
 .idea-title {
     font-size: 1.2rem;
     color: var(--text-dark);

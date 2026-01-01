@@ -31,7 +31,9 @@ if (featureForm) {
             description: document.getElementById('description').value,
             priority: document.getElementById('priority').value,
             votes: 0,
-            timestamp: Date.now()
+            timestamp: Date.now(),
+            status: 'pending',
+            approved: false
         };
 
         // Try to submit to Firebase

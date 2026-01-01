@@ -1,60 +1,3 @@
-// Demo data (used when Firebase is not configured)
-const demoIdeas = [
-    {
-        id: 'demo1',
-        title: 'Audio Bible Integration',
-        description: 'Add the ability to listen to Bible chapters while following along with the text. Would be great for commutes!',
-        category: 'reading',
-        votes: 42,
-        timestamp: Date.now() - 86400000 * 5,
-        name: 'Sarah'
-    },
-    {
-        id: 'demo2',
-        title: 'Reading Plans from Popular Authors',
-        description: 'Include pre-made reading plans from well-known Bible teachers and authors like David Platt or Jen Wilkin.',
-        category: 'reading',
-        votes: 38,
-        timestamp: Date.now() - 86400000 * 3,
-        name: 'Michael'
-    },
-    {
-        id: 'demo3',
-        title: 'Flashcard Mode for Memorization',
-        description: 'A dedicated flashcard view that shows one verse at a time, with the ability to flip and reveal.',
-        category: 'memorization',
-        votes: 35,
-        timestamp: Date.now() - 86400000 * 7,
-        name: 'Anonymous'
-    },
-    {
-        id: 'demo4',
-        title: 'Custom Color Themes',
-        description: 'Let users create their own color themes beyond the preset options. Would love to match my wallpaper!',
-        category: 'themes',
-        votes: 29,
-        timestamp: Date.now() - 86400000 * 2,
-        name: 'Emma'
-    },
-    {
-        id: 'demo5',
-        title: 'Weekly Progress Summary Notification',
-        description: 'Send a weekly summary showing chapters read, verses memorized, and streak stats.',
-        category: 'reminders',
-        votes: 24,
-        timestamp: Date.now() - 86400000 * 4,
-        name: 'David'
-    },
-    {
-        id: 'demo6',
-        title: 'Share Progress with Friends',
-        description: 'Add ability to connect with friends and see each other\'s reading progress for accountability.',
-        category: 'sync',
-        votes: 31,
-        timestamp: Date.now() - 86400000 * 1,
-        name: 'Rachel'
-    }
-];
 
 // Get voted ideas from localStorage (to prevent multiple votes from same browser)
 function getVotedIdeas() {
@@ -109,6 +52,17 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
+// Get status badge HTML
+function getStatusBadge(status) {
+    if (!status || status === 'pending') return '';
+    const labels = {
+        'in-progress': 'In Progress',
+        'done': 'Done'
+    };
+    const label = labels[status] || status;
+    return `<span class="idea-status idea-status-${status}">${label}</span>`;
+}
+
 // Render a single idea card
 function renderIdeaCard(idea) {
     const voted = hasVoted(idea.id);
@@ -127,6 +81,7 @@ function renderIdeaCard(idea) {
             <div class="idea-content">
                 <div class="idea-meta">
                     <span class="idea-category">${getCategoryLabel(idea.category)}</span>
+                    ${getStatusBadge(idea.status)}
                     <span class="idea-time">${formatTime(idea.timestamp)}</span>
                 </div>
                 <h3 class="idea-title">${escapeHtml(idea.title)}</h3>
@@ -142,13 +97,9 @@ let allIdeas = [];
 let currentFilter = 'all';
 let currentSort = 'votes';
 
-// Fetch ideas from Firebase or use demo data
+// Fetch ideas from Firebase
 function fetchIdeas() {
-    const container = document.getElementById('ideasList');
-    const noIdeas = document.getElementById('noIdeas');
-
     if (isFirebaseReady()) {
-        // Real-time listener for Firebase
         getDatabase().ref('ideas').orderByChild('votes').on('value', (snapshot) => {
             const data = snapshot.val();
             if (data) {
@@ -162,14 +113,12 @@ function fetchIdeas() {
             renderIdeas();
         }, (error) => {
             console.error('Error fetching ideas:', error);
-            // Fallback to demo data
-            allIdeas = [...demoIdeas];
+            allIdeas = [];
             renderIdeas();
         });
     } else {
-        // Use demo data
-        allIdeas = [...demoIdeas];
-        renderIdeas();
+        // Wait for Firebase to initialize
+        setTimeout(fetchIdeas, 100);
     }
 }
 
@@ -190,10 +139,11 @@ function sortIdeas(ideas) {
     return sorted;
 }
 
-// Filter ideas
+// Filter ideas (only show approved ideas to public)
 function filterIdeas(ideas) {
-    if (currentFilter === 'all') return ideas;
-    return ideas.filter(idea => idea.category === currentFilter);
+    let filtered = ideas.filter(idea => idea.approved === true);
+    if (currentFilter === 'all') return filtered;
+    return filtered.filter(idea => idea.category === currentFilter);
 }
 
 // Render ideas list
