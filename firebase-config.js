@@ -1,7 +1,7 @@
 const firebaseConfig = {
     apiKey: "AIzaSyBGHmPtH1oTmW01ITph978UIrRiJxhpQrc",
     authDomain: "yourbibletracker-dbe0a.firebaseapp.com",
-    databaseURL: "https://yourbibletracker-dbe0a-default-rtdb.firebaseio.com",
+    databaseURL: "https://yourbibletracker-dbe0a-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "yourbibletracker-dbe0a",
     storageBucket: "yourbibletracker-dbe0a.firebasestorage.app",
     messagingSenderId: "701452014266",

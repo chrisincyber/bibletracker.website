@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yourbibletracker.com/sitemap.xml
