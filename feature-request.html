@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Request a feature for YourBibleTracker - We'd love to hear your ideas!">
-    <title>Feature Request - YourBibleTracker</title>
+    <meta name="description" content="Vote on feature ideas and submit your own for YourBibleTracker">
+    <title>Feature Ideas - YourBibleTracker</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -18,19 +18,53 @@
                 <li><a href="index.html#features">Features</a></li>
                 <li><a href="index.html#about">About</a></li>
                 <li><a href="privacy.html">Privacy</a></li>
-                <li><a href="feature-request.html" class="btn-primary">Request Feature</a></li>
+                <li><a href="feature-request.html" class="btn-primary">Ideas</a></li>
             </ul>
         </div>
     </nav>
 
-    <div class="form-container">
-        <h1 style="text-align: center; margin-bottom: 1rem;">💡 Feature Request</h1>
-        <p style="text-align: center; color: var(--text-light); margin-bottom: 3rem;">
+    <div class="ideas-container">
+        <div class="ideas-header">
+            <h1>Feature Ideas</h1>
+            <p>Vote on ideas you'd like to see, or submit your own below!</p>
+        </div>
+
+        <div class="ideas-filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="reading">Reading Tracker</button>
+            <button class="filter-btn" data-filter="memorization">Memorization</button>
+            <button class="filter-btn" data-filter="themes">Themes & Design</button>
+            <button class="filter-btn" data-filter="reminders">Reminders</button>
+            <button class="filter-btn" data-filter="sync">iCloud Sync</button>
+            <button class="filter-btn" data-filter="other">Other</button>
+        </div>
+
+        <div class="ideas-sort">
+            <label for="sortBy">Sort by:</label>
+            <select id="sortBy">
+                <option value="votes">Most Votes</option>
+                <option value="newest">Newest</option>
+                <option value="oldest">Oldest</option>
+            </select>
+        </div>
+
+        <div id="ideasList" class="ideas-list">
+            <div class="loading-message">Loading ideas...</div>
+        </div>
+
+        <div id="noIdeas" class="no-ideas" style="display: none;">
+            <p>No feature ideas yet. Be the first to submit one below!</p>
+        </div>
+    </div>
+
+    <div class="form-container" style="border-top: 1px solid var(--border); margin-top: 2rem; padding-top: 3rem;">
+        <h2 style="text-align: center; margin-bottom: 1rem;">Submit Your Idea</h2>
+        <p style="text-align: center; color: var(--text-light); margin-bottom: 2rem;">
             Have an idea to make YourBibleTracker better? We'd love to hear it!
         </p>
 
         <div id="successMessage" class="success-message">
-            ✓ Thank you! Your feature request has been submitted.
+            Your idea has been submitted! It now appears in the list above.
         </div>
 
         <form id="featureRequestForm">
@@ -77,7 +111,7 @@
                 </select>
             </div>
 
-            <button type="submit" class="submit-btn">Submit Feature Request</button>
+            <button type="submit" class="submit-btn">Submit Idea</button>
         </form>
 
         <p style="text-align: center; color: var(--text-light); margin-top: 2rem; font-size: 0.9rem;">
@@ -110,13 +144,19 @@
         </div>
 
         <div class="container footer-bottom">
-            <p>&copy; 2025 YourBibleTracker. Built with ❤️ for God's glory.</p>
+            <p>&copy; 2025 YourBibleTracker. Built with love for God's glory.</p>
         </div>
     </footer>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+    <script src="firebase-config.js"></script>
     <script src="script.js"></script>
+    <script src="ideas.js"></script>
 
     <!-- Buy Me a Coffee Widget -->
-    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="bibletracker" data-description="Support me on Buy me a coffee!" data-message="Help keep YourYourBibleTracker free for everyone! Your support brings God's word closer to people worldwide." data-color="#5F7FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="bibletracker" data-description="Support me on Buy me a coffee!" data-message="Help keep YourBibleTracker free for everyone! Your support brings God's word closer to people worldwide." data-color="#F59E0B" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 </body>
 </html>

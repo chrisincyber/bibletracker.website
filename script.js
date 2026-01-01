@@ -18,39 +18,58 @@ if (featureForm) {
     featureForm.addEventListener('submit', async function(e) {
         e.preventDefault();
 
-        const formData = {
+        const submitBtn = featureForm.querySelector('.submit-btn');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Submitting...';
+        submitBtn.disabled = true;
+
+        const ideaData = {
             name: document.getElementById('name').value || 'Anonymous',
-            email: document.getElementById('email').value || 'No email provided',
+            email: document.getElementById('email').value || '',
             category: document.getElementById('category').value,
             title: document.getElementById('title').value,
             description: document.getElementById('description').value,
             priority: document.getElementById('priority').value,
-            timestamp: new Date().toISOString()
+            votes: 0,
+            timestamp: Date.now()
         };
 
-        // For now, just show success message
-        // In production, you'd send this to a backend service or email
-        console.log('Feature Request Submitted:', formData);
-
-        // You can integrate with services like:
-        // - Formspree (https://formspree.io/)
-        // - EmailJS (https://www.emailjs.com/)
-        // - Google Forms
-        // - Your own backend
-
-        // Example with EmailJS (you'd need to set this up):
-        /*
-        emailjs.send('service_id', 'template_id', formData)
-            .then(function(response) {
+        // Try to submit to Firebase
+        if (typeof isFirebaseReady === 'function' && isFirebaseReady()) {
+            try {
+                const newIdeaRef = getDatabase().ref('ideas').push();
+                await newIdeaRef.set(ideaData);
                 showSuccessMessage();
-            }, function(error) {
-                alert('Error submitting request. Please email us directly.');
-            });
-        */
+                featureForm.reset();
+            } catch (error) {
+                console.error('Error submitting idea:', error);
+                alert('There was an error submitting your idea. Please try again or email us directly at yourbibletracker@gmail.com');
+            }
+        } else {
+            // Fallback to email if Firebase not configured
+            const subject = encodeURIComponent(`Feature Request: ${ideaData.title}`);
+            const body = encodeURIComponent(
+`Feature Request for YourBibleTracker
 
-        // For now, just show success
-        showSuccessMessage();
-        featureForm.reset();
+Title: ${ideaData.title}
+Category: ${ideaData.category}
+Priority: ${ideaData.priority}
+
+Description:
+${ideaData.description}
+
+---
+Submitted by: ${ideaData.name}
+Contact email: ${ideaData.email || 'Not provided'}
+Date: ${new Date().toLocaleDateString()}`
+            );
+            window.location.href = `mailto:yourbibletracker@gmail.com?subject=${subject}&body=${body}`;
+            showSuccessMessage();
+            featureForm.reset();
+        }
+
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
     });
 }
 
