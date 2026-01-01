@@ -23,6 +23,11 @@ if (featureForm) {
         submitBtn.textContent = 'Submitting...';
         submitBtn.disabled = true;
 
+        const resetButton = () => {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        };
+
         const ideaData = {
             name: document.getElementById('name').value || 'Anonymous',
             email: document.getElementById('email').value || '',
@@ -37,15 +42,22 @@ if (featureForm) {
         };
 
         // Try to submit to Firebase
-        if (typeof isFirebaseReady === 'function' && isFirebaseReady()) {
+        if (typeof isFirebaseReady === 'function' && isFirebaseReady() && typeof getDatabase === 'function' && getDatabase()) {
             try {
+                // Add timeout to prevent hanging forever
+                const timeoutPromise = new Promise((_, reject) =>
+                    setTimeout(() => reject(new Error('Request timed out')), 10000)
+                );
+
                 const newIdeaRef = getDatabase().ref('ideas').push();
-                await newIdeaRef.set(ideaData);
+                await Promise.race([newIdeaRef.set(ideaData), timeoutPromise]);
                 showSuccessMessage();
                 featureForm.reset();
             } catch (error) {
                 console.error('Error submitting idea:', error);
                 alert('There was an error submitting your idea. Please try again or email us directly at yourbibletracker@gmail.com');
+            } finally {
+                resetButton();
             }
         } else {
             // Fallback to email if Firebase not configured
@@ -68,10 +80,8 @@ Date: ${new Date().toLocaleDateString()}`
             window.location.href = `mailto:yourbibletracker@gmail.com?subject=${subject}&body=${body}`;
             showSuccessMessage();
             featureForm.reset();
+            resetButton();
         }
-
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
     });
 }
 
