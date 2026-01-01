@@ -10,12 +10,13 @@
     --primary-dark: #D97706;
     --secondary: #EA580C;
     --accent: #FBBF24;
-    --text-dark: #111827;
-    --text-light: #6B7280;
-    --bg-light: #F9FAFB;
-    --bg-white: #FFFFFF;
-    --border: #E5E7EB;
-    --black: #111827;
+    --text-dark: #F9FAFB;
+    --text-light: #9CA3AF;
+    --bg-light: #1F2937;
+    --bg-white: #111827;
+    --bg-card: #1F2937;
+    --border: #374151;
+    --black: #0D1117;
 }
 
 body {
@@ -39,7 +40,7 @@ nav {
     top: 0;
     z-index: 100;
     backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(17, 24, 39, 0.95);
 }
 
 .nav-container {
@@ -223,16 +224,18 @@ nav {
 }
 
 .feature-card {
-    background: white;
+    background: var(--bg-card);
     padding: 2rem;
     border-radius: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border);
     transition: all 0.3s;
 }
 
 .feature-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    border-color: var(--primary);
 }
 
 .feature-icon {
@@ -254,7 +257,7 @@ nav {
 /* About Section */
 .about {
     padding: 6rem 0;
-    background: white;
+    background: var(--bg-white);
 }
 
 .about-content {
@@ -369,6 +372,8 @@ footer {
     font-size: 1rem;
     font-family: inherit;
     transition: border-color 0.3s;
+    background: var(--bg-card);
+    color: var(--text-dark);
 }
 
 .form-group input:focus,
@@ -404,12 +409,13 @@ footer {
 
 /* Success Message */
 .success-message {
-    background: #D1FAE5;
-    color: #065F46;
+    background: rgba(16, 185, 129, 0.2);
+    color: #10B981;
     padding: 1rem;
     border-radius: 0.5rem;
     margin-bottom: 1rem;
     display: none;
+    border: 1px solid #10B981;
 }
 
 .success-message.show {
@@ -451,7 +457,7 @@ footer {
 .filter-btn {
     padding: 0.5rem 1rem;
     border: 2px solid var(--border);
-    background: white;
+    background: var(--bg-card);
     border-radius: 2rem;
     cursor: pointer;
     font-size: 0.9rem;
@@ -489,6 +495,8 @@ footer {
     border-radius: 0.5rem;
     font-size: 0.9rem;
     cursor: pointer;
+    background: var(--bg-card);
+    color: var(--text-dark);
 }
 
 .ideas-list {
@@ -507,8 +515,9 @@ footer {
     text-align: center;
     color: var(--text-light);
     padding: 3rem;
-    background: var(--bg-light);
+    background: var(--bg-card);
     border-radius: 1rem;
+    border: 1px solid var(--border);
 }
 
 .no-ideas a {
@@ -518,17 +527,18 @@ footer {
 .idea-card {
     display: flex;
     gap: 1.5rem;
-    background: white;
+    background: var(--bg-card);
     padding: 1.5rem;
     border-radius: 1rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     border: 1px solid var(--border);
     transition: all 0.3s;
 }
 
 .idea-card:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
     transform: translateY(-2px);
+    border-color: var(--primary);
 }
 
 .idea-vote {
@@ -543,7 +553,7 @@ footer {
     width: 44px;
     height: 44px;
     border: 2px solid var(--border);
-    background: white;
+    background: var(--bg-white);
     border-radius: 0.5rem;
     cursor: pointer;
     display: flex;
@@ -588,8 +598,8 @@ footer {
 }
 
 .idea-category {
-    background: rgba(245, 158, 11, 0.1);
-    color: var(--primary-dark);
+    background: rgba(245, 158, 11, 0.2);
+    color: var(--primary);
     padding: 0.25rem 0.75rem;
     border-radius: 1rem;
     font-weight: 500;
