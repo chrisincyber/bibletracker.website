@@ -8,9 +8,8 @@ const firebaseConfig = {
     appId: "1:701452014266:web:9c0b65bdbdc3a4757f6883"
 };
 
-// VAPID key for web push (you'll need to generate this in Firebase Console)
-// Go to: Firebase Console > Project Settings > Cloud Messaging > Web Push certificates
-const VAPID_KEY = 'YOUR_VAPID_KEY_HERE';
+// VAPID key for web push (from Firebase Console > Cloud Messaging > Web Push certificates)
+const VAPID_KEY = 'BLqtoQ7_eBe3ZxugxAJCay0LEsqF9J03_s-5QgeLITDWJE4xizCWkefCH2rnwX0K6FWcXsjVH6qhQOdhmCpXgdQ';
 
 let app, db, messaging;
 let firebaseReady = false;
