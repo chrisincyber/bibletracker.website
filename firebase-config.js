@@ -8,8 +8,13 @@ const firebaseConfig = {
     appId: "1:701452014266:web:9c0b65bdbdc3a4757f6883"
 };
 
-let app, db;
+// VAPID key for web push (you'll need to generate this in Firebase Console)
+// Go to: Firebase Console > Project Settings > Cloud Messaging > Web Push certificates
+const VAPID_KEY = 'YOUR_VAPID_KEY_HERE';
+
+let app, db, messaging;
 let firebaseReady = false;
+let messagingReady = false;
 
 function initFirebase() {
     if (firebaseReady) return true;
@@ -32,12 +37,128 @@ function initFirebase() {
     }
 }
 
+function initMessaging() {
+    if (messagingReady) return true;
+    try {
+        if (typeof firebase !== 'undefined' && firebase.messaging) {
+            messaging = firebase.messaging();
+            messagingReady = true;
+            return true;
+        }
+        return false;
+    } catch (error) {
+        console.error('Firebase Messaging error:', error);
+        return false;
+    }
+}
+
 function isFirebaseReady() {
     return firebaseReady;
 }
 
+function isMessagingReady() {
+    return messagingReady;
+}
+
 function getDatabase() {
     return db;
+}
+
+function getMessaging() {
+    return messaging;
+}
+
+// Register service worker and get push token
+async function registerForPushNotifications() {
+    try {
+        // Check if browser supports notifications
+        if (!('Notification' in window)) {
+            console.log('This browser does not support notifications');
+            return null;
+        }
+
+        // Request permission
+        const permission = await Notification.requestPermission();
+        if (permission !== 'granted') {
+            console.log('Notification permission denied');
+            return null;
+        }
+
+        // Register service worker
+        const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+        console.log('Service Worker registered:', registration);
+
+        // Initialize messaging if not already done
+        if (!messagingReady) {
+            initMessaging();
+        }
+
+        // Get the token
+        const token = await messaging.getToken({
+            vapidKey: VAPID_KEY,
+            serviceWorkerRegistration: registration
+        });
+
+        if (token) {
+            console.log('Push token:', token);
+            // Save token to database
+            await savePushToken(token);
+            return token;
+        }
+        return null;
+    } catch (error) {
+        console.error('Error registering for push notifications:', error);
+        return null;
+    }
+}
+
+// Save push token to Firebase
+async function savePushToken(token) {
+    if (!isFirebaseReady()) {
+        initFirebase();
+    }
+
+    const tokenData = {
+        token: token,
+        timestamp: Date.now(),
+        userAgent: navigator.userAgent,
+        subscribed: true
+    };
+
+    // Use token as key (hashed for shorter ID)
+    const tokenId = btoa(token).replace(/[^a-zA-Z0-9]/g, '').substring(0, 20);
+
+    try {
+        await db.ref(`pushTokens/${tokenId}`).set(tokenData);
+        localStorage.setItem('pushTokenId', tokenId);
+        localStorage.setItem('pushSubscribed', 'true');
+        console.log('Push token saved to database');
+        return true;
+    } catch (error) {
+        console.error('Error saving push token:', error);
+        return false;
+    }
+}
+
+// Unsubscribe from push notifications
+async function unsubscribeFromPush() {
+    try {
+        const tokenId = localStorage.getItem('pushTokenId');
+        if (tokenId && isFirebaseReady()) {
+            await db.ref(`pushTokens/${tokenId}`).update({ subscribed: false });
+        }
+        localStorage.removeItem('pushSubscribed');
+        console.log('Unsubscribed from push notifications');
+        return true;
+    } catch (error) {
+        console.error('Error unsubscribing:', error);
+        return false;
+    }
+}
+
+// Check if user is subscribed
+function isPushSubscribed() {
+    return localStorage.getItem('pushSubscribed') === 'true';
 }
 
 // Auto-initialize when script loads

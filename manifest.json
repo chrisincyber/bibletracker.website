@@ -1,0 +1,22 @@
+{
+    "name": "YourBibleTracker",
+    "short_name": "BibleTracker",
+    "description": "Track your Bible reading journey. Completely free. No ads. No paywalls.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#1a1a2e",
+    "theme_color": "#F59E0B",
+    "icons": [
+        {
+            "src": "/logo.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/logo.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "gcm_sender_id": "103953800507"
+}

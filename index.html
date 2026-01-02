@@ -7,6 +7,7 @@
     <meta name="keywords" content="Bible, Bible tracker, Bible reading, Scripture, Christian app, Bible study">
     <title>YourBibleTracker - Track Your Bible Reading Journey</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
     <nav>
@@ -137,7 +138,107 @@
         </div>
     </footer>
 
+    <!-- Firebase SDK for Push Notifications -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-messaging-compat.js"></script>
+    <script src="firebase-config.js"></script>
     <script src="script.js"></script>
+
+    <!-- Push Notification Subscription UI -->
+    <div id="pushNotificationBanner" class="push-banner hidden">
+        <div class="push-banner-content">
+            <span>Stay updated with the latest from YourBibleTracker</span>
+            <div class="push-banner-actions">
+                <button onclick="subscribeToPush()" class="push-subscribe-btn">Enable Notifications</button>
+                <button onclick="dismissPushBanner()" class="push-dismiss-btn">Not now</button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .push-banner {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-card);
+            border: 1px solid var(--primary);
+            border-radius: 1rem;
+            padding: 1rem 1.5rem;
+            z-index: 999;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            max-width: 90%;
+            width: 400px;
+        }
+        .push-banner-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            text-align: center;
+        }
+        .push-banner-content span {
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+        .push-banner-actions {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+        .push-subscribe-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .push-dismiss-btn {
+            background: transparent;
+            color: var(--text-light);
+            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+        }
+        .hidden { display: none !important; }
+    </style>
+
+    <script>
+        // Show push notification banner after 5 seconds if not already subscribed
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                if (!isPushSubscribed() && !sessionStorage.getItem('pushBannerDismissed')) {
+                    if ('Notification' in window && 'serviceWorker' in navigator) {
+                        document.getElementById('pushNotificationBanner').classList.remove('hidden');
+                    }
+                }
+            }, 5000);
+        });
+
+        async function subscribeToPush() {
+            const banner = document.getElementById('pushNotificationBanner');
+            try {
+                const token = await registerForPushNotifications();
+                if (token) {
+                    banner.classList.add('hidden');
+                    alert('You are now subscribed to notifications!');
+                } else {
+                    alert('Could not enable notifications. Please check your browser settings.');
+                }
+            } catch (error) {
+                console.error('Error subscribing:', error);
+                alert('Error enabling notifications. Please try again.');
+            }
+        }
+
+        function dismissPushBanner() {
+            document.getElementById('pushNotificationBanner').classList.add('hidden');
+            sessionStorage.setItem('pushBannerDismissed', 'true');
+        }
+    </script>
 
     <!-- Buy Me a Coffee Widget -->
     <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="bibletracker" data-description="Support me on Buy me a coffee!" data-message="Help keep YourBibleTracker free for everyone! Your support brings God's word closer to people worldwide." data-color="#F59E0B" data-position="Right" data-x_margin="18" data-y_margin="18"></script>

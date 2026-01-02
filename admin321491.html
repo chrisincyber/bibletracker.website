@@ -179,6 +179,175 @@
         }
         .hidden { display: none !important; }
 
+        /* Push Notifications Section */
+        .push-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .push-section h2 {
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .push-section h2::before {
+            content: "🔔";
+        }
+        .push-form {
+            display: grid;
+            gap: 1rem;
+        }
+        .push-form .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        @media (max-width: 600px) {
+            .push-form .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        .push-form .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .push-form label {
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .push-form input,
+        .push-form textarea {
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            background: var(--bg-white);
+            color: var(--text-dark);
+            font-size: 1rem;
+        }
+        .push-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .push-form .char-count {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            text-align: right;
+        }
+        .push-stats {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .push-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        .push-stat .number {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        .send-push-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+        .send-push-btn:hover {
+            opacity: 0.9;
+        }
+        .send-push-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .push-history {
+            margin-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            padding-top: 1.5rem;
+        }
+        .push-history h3 {
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        .push-history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .push-history-item {
+            background: var(--bg-white);
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            border-left: 3px solid var(--primary);
+        }
+        .push-history-item .title {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+        .push-history-item .body {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        .push-history-item .meta {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            display: flex;
+            gap: 1rem;
+        }
+        .tab-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1rem;
+        }
+        .tab-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: var(--text-light);
+            cursor: pointer;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        .tab-btn:hover:not(.active) {
+            background: var(--border);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
         /* Edit Modal */
         .modal-overlay {
             position: fixed;
@@ -277,10 +446,75 @@
 
         <div class="admin-container">
             <div class="admin-header">
-                <h1>Feature Request Management</h1>
+                <h1>Admin Dashboard</h1>
             </div>
 
-            <div class="stats-row">
+            <!-- Tab Navigation -->
+            <div class="tab-buttons">
+                <button class="tab-btn active" data-tab="notifications">Push Notifications</button>
+                <button class="tab-btn" data-tab="ideas">Feature Requests</button>
+            </div>
+
+            <!-- Push Notifications Tab -->
+            <div id="notificationsTab" class="tab-content active">
+                <div class="push-section">
+                    <h2>Send Push Notification</h2>
+
+                    <div class="push-stats">
+                        <div class="push-stat">
+                            <span>Subscribers:</span>
+                            <span class="number" id="subscriberCount">0</span>
+                        </div>
+                        <div class="push-stat">
+                            <span>Total Sent:</span>
+                            <span class="number" id="totalSentCount">0</span>
+                        </div>
+                    </div>
+
+                    <form id="pushForm" class="push-form">
+                        <div class="form-group">
+                            <label for="pushTitle">Notification Title *</label>
+                            <input type="text" id="pushTitle" placeholder="e.g., New Feature Available!" maxlength="50" required>
+                            <span class="char-count"><span id="titleCount">0</span>/50</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pushBody">Message Body *</label>
+                            <textarea id="pushBody" placeholder="Write your notification message here..." maxlength="200" required></textarea>
+                            <span class="char-count"><span id="bodyCount">0</span>/200</span>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="pushUrl">Link URL (optional)</label>
+                                <input type="url" id="pushUrl" placeholder="https://yourbibletracker.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="pushIcon">Icon (optional)</label>
+                                <input type="text" id="pushIcon" placeholder="/logo.png" value="/logo.png">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="send-push-btn" id="sendPushBtn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                            </svg>
+                            Send Notification
+                        </button>
+                    </form>
+
+                    <div class="push-history">
+                        <h3>Recent Notifications</h3>
+                        <div id="pushHistoryList" class="push-history-list">
+                            <p style="color: var(--text-light); text-align: center;">No notifications sent yet.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature Requests Tab -->
+            <div id="ideasTab" class="tab-content">
+                <div class="stats-row">
                 <div class="stat-card">
                     <div class="number" id="totalCount">0</div>
                     <div class="label">Total Ideas</div>
@@ -307,6 +541,7 @@
             </div>
 
             <div id="adminIdeasList"></div>
+            </div>
         </div>
     </div>
 
@@ -333,6 +568,7 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-messaging-compat.js"></script>
     <script src="firebase-config.js"></script>
 
     <script>
@@ -341,6 +577,8 @@
 
         let allIdeas = [];
         let currentFilter = 'all';
+        let pushTokens = [];
+        let pushHistory = [];
 
         // SHA-256 hash function
         async function sha256(message) {
@@ -374,6 +612,8 @@
             initFirebase();
             loadIdeas();
             initFilters();
+            initTabs();
+            initPushNotifications();
         }
 
         function logout() {
@@ -559,6 +799,193 @@
                     renderIdeas();
                 });
             });
+        }
+
+        // Tab Navigation
+        function initTabs() {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const tabName = btn.dataset.tab;
+
+                    // Update button states
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    // Update tab content visibility
+                    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+                    document.getElementById(tabName + 'Tab').classList.add('active');
+                });
+            });
+        }
+
+        // Push Notifications
+        function initPushNotifications() {
+            loadPushTokens();
+            loadPushHistory();
+            initPushForm();
+        }
+
+        function loadPushTokens() {
+            if (!isFirebaseReady()) {
+                setTimeout(loadPushTokens, 100);
+                return;
+            }
+
+            getDatabase().ref('pushTokens').on('value', (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    pushTokens = Object.keys(data)
+                        .map(key => ({ id: key, ...data[key] }))
+                        .filter(t => t.subscribed !== false);
+                } else {
+                    pushTokens = [];
+                }
+                document.getElementById('subscriberCount').textContent = pushTokens.length;
+            });
+        }
+
+        function loadPushHistory() {
+            if (!isFirebaseReady()) {
+                setTimeout(loadPushHistory, 100);
+                return;
+            }
+
+            getDatabase().ref('pushNotifications').orderByChild('timestamp').limitToLast(10).on('value', (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    pushHistory = Object.keys(data)
+                        .map(key => ({ id: key, ...data[key] }))
+                        .sort((a, b) => b.timestamp - a.timestamp);
+                } else {
+                    pushHistory = [];
+                }
+                renderPushHistory();
+                updateTotalSent();
+            });
+        }
+
+        function updateTotalSent() {
+            getDatabase().ref('pushNotifications').once('value', (snapshot) => {
+                const count = snapshot.numChildren() || 0;
+                document.getElementById('totalSentCount').textContent = count;
+            });
+        }
+
+        function renderPushHistory() {
+            const container = document.getElementById('pushHistoryList');
+
+            if (pushHistory.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-light); text-align: center;">No notifications sent yet.</p>';
+                return;
+            }
+
+            container.innerHTML = pushHistory.map(notification => `
+                <div class="push-history-item">
+                    <div class="title">${escapeHtml(notification.title)}</div>
+                    <div class="body">${escapeHtml(notification.body)}</div>
+                    <div class="meta">
+                        <span>Sent: ${formatDate(notification.timestamp)}</span>
+                        <span>Recipients: ${notification.recipientCount || 0}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function initPushForm() {
+            // Character counters
+            const titleInput = document.getElementById('pushTitle');
+            const bodyInput = document.getElementById('pushBody');
+            const titleCount = document.getElementById('titleCount');
+            const bodyCount = document.getElementById('bodyCount');
+
+            titleInput.addEventListener('input', () => {
+                titleCount.textContent = titleInput.value.length;
+            });
+
+            bodyInput.addEventListener('input', () => {
+                bodyCount.textContent = bodyInput.value.length;
+            });
+
+            // Form submission
+            document.getElementById('pushForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                await sendPushNotification();
+            });
+        }
+
+        async function sendPushNotification() {
+            const title = document.getElementById('pushTitle').value.trim();
+            const body = document.getElementById('pushBody').value.trim();
+            const url = document.getElementById('pushUrl').value.trim();
+            const icon = document.getElementById('pushIcon').value.trim();
+
+            if (!title || !body) {
+                alert('Please fill in both title and message body');
+                return;
+            }
+
+            const sendBtn = document.getElementById('sendPushBtn');
+            sendBtn.disabled = true;
+            sendBtn.innerHTML = 'Sending...';
+
+            try {
+                // Get all active push tokens
+                const activeTokens = pushTokens.filter(t => t.subscribed !== false);
+
+                if (activeTokens.length === 0) {
+                    alert('No subscribers to send notifications to.');
+                    sendBtn.disabled = false;
+                    sendBtn.innerHTML = `
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                        </svg>
+                        Send Notification
+                    `;
+                    return;
+                }
+
+                // Create notification record
+                const notificationData = {
+                    title: title,
+                    body: body,
+                    url: url || 'https://yourbibletracker.com',
+                    icon: icon || '/logo.png',
+                    timestamp: Date.now(),
+                    recipientCount: activeTokens.length,
+                    tokens: activeTokens.map(t => t.token)
+                };
+
+                // Save to Firebase (this will be picked up by a Cloud Function to send)
+                const newNotificationRef = await getDatabase().ref('pushNotifications').push(notificationData);
+
+                // Also save to pending queue for processing
+                await getDatabase().ref('pushQueue').push({
+                    notificationId: newNotificationRef.key,
+                    ...notificationData,
+                    status: 'pending'
+                });
+
+                // Clear form
+                document.getElementById('pushTitle').value = '';
+                document.getElementById('pushBody').value = '';
+                document.getElementById('pushUrl').value = '';
+                document.getElementById('titleCount').textContent = '0';
+                document.getElementById('bodyCount').textContent = '0';
+
+                alert(`Notification queued for ${activeTokens.length} subscriber(s)!\n\nNote: You'll need to set up a Firebase Cloud Function to actually send the notifications to devices. The notification data has been saved to the database.`);
+
+            } catch (error) {
+                console.error('Error sending notification:', error);
+                alert('Error sending notification. Please try again.');
+            } finally {
+                sendBtn.disabled = false;
+                sendBtn.innerHTML = `
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                    </svg>
+                    Send Notification
+                `;
+            }
         }
     </script>
 </body>
