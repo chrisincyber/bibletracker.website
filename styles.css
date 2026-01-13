@@ -1126,6 +1126,116 @@ section {
 }
 
 /* =========================================
+   Blog Styles
+   ========================================= */
+.blog-hero {
+    padding: calc(100px + var(--space-xl)) 0 var(--space-xl);
+    text-align: center;
+}
+
+.blog-content {
+    padding: var(--space-xl) 0 var(--space-3xl);
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+}
+
+.blog-card {
+    padding: var(--space-lg);
+    transition: all var(--transition-base);
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+.blog-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-md);
+}
+
+.blog-category {
+    padding: var(--space-xs) var(--space-sm);
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.blog-card time {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.blog-card h2 {
+    font-size: 1.25rem;
+    margin-bottom: var(--space-sm);
+    line-height: 1.4;
+}
+
+.blog-card h2 a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.blog-card h2 a:hover {
+    color: var(--primary);
+}
+
+.blog-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+}
+
+.blog-read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all var(--transition-fast);
+}
+
+.blog-read-more:hover {
+    gap: var(--space-sm);
+}
+
+.blog-read-more svg {
+    transition: transform var(--transition-fast);
+}
+
+.blog-read-more:hover svg {
+    transform: translateX(4px);
+}
+
+@media (max-width: 768px) {
+    .blog-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .blog-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+    }
+}
+
+/* =========================================
    Cookie Banner Overrides
    ========================================= */
 #cookie-banner {
