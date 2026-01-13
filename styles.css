@@ -1458,3 +1458,314 @@ button:focus-visible {
     outline: 2px solid var(--primary);
     outline-offset: 2px;
 }
+
+/* =========================================
+   Feature Ideas Page
+   ========================================= */
+.ideas-section {
+    padding: calc(100px + var(--space-xl)) 0 var(--space-xl);
+}
+
+.submit-section {
+    padding: var(--space-xl) 0 var(--space-3xl);
+}
+
+/* Filter Buttons */
+.ideas-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+}
+
+.filter-btn {
+    padding: var(--space-sm) var(--space-md);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-full);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.filter-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.filter-btn.active {
+    background: var(--gradient-primary);
+    border-color: var(--primary);
+    color: #000;
+}
+
+/* Sort Dropdown */
+.ideas-sort {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xl);
+}
+
+.ideas-sort label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.ideas-sort select {
+    padding: var(--space-sm) var(--space-md);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.ideas-sort select:hover,
+.ideas-sort select:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+/* Ideas List */
+.ideas-list {
+    display: grid;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+}
+
+.idea-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-lg);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-lg);
+    transition: all var(--transition-base);
+}
+
+.idea-card:hover {
+    border-color: rgba(245, 158, 11, 0.3);
+    transform: translateY(-2px);
+}
+
+.idea-vote {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.idea-vote button {
+    width: 48px;
+    height: 48px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.idea-vote button:hover {
+    background: rgba(245, 158, 11, 0.1);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.idea-vote button.voted {
+    background: var(--gradient-primary);
+    border-color: var(--primary);
+    color: #000;
+}
+
+.idea-vote .vote-count {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.idea-content h3 {
+    margin-bottom: var(--space-xs);
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+.idea-content p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: var(--space-sm);
+}
+
+.idea-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    align-items: center;
+}
+
+.idea-category {
+    padding: var(--space-xs) var(--space-sm);
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--accent);
+}
+
+.idea-date {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Loading & Empty States */
+.loading-message,
+.no-ideas {
+    text-align: center;
+    padding: var(--space-2xl);
+    color: var(--text-muted);
+}
+
+.no-ideas p {
+    font-size: 1.1rem;
+}
+
+/* Form Wrapper */
+.form-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-wrapper form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.form-group label {
+    font-weight: 500;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+.form-group small {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: var(--space-md);
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all var(--transition-fast);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.form-group input:hover,
+.form-group select:hover,
+.form-group textarea:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+}
+
+.form-group textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.form-group select {
+    cursor: pointer;
+}
+
+.form-group select option {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+/* Submit Button */
+.submit-btn {
+    margin-top: var(--space-sm);
+    border: none;
+    cursor: pointer;
+}
+
+/* Form Note */
+.form-note {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: var(--space-lg);
+}
+
+/* Success Message */
+.success-message {
+    display: none;
+    padding: var(--space-md);
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: var(--radius-md);
+    color: #22c55e;
+    text-align: center;
+    margin-bottom: var(--space-lg);
+}
+
+.success-message.show {
+    display: block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .ideas-filters {
+        gap: var(--space-xs);
+    }
+
+    .filter-btn {
+        padding: var(--space-xs) var(--space-sm);
+        font-size: 0.85rem;
+    }
+
+    .idea-card {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+
+    .idea-vote {
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+}
