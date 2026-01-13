@@ -5,62 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Terms of Service for YourBibleTracker">
     <title>Terms of Service - YourBibleTracker</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <style>
-        .policy-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 4rem 20px;
-        }
-        .policy-content h1 {
-            margin-bottom: 1rem;
-        }
-        .policy-content h2 {
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-        .policy-content p {
-            margin-bottom: 1rem;
-            line-height: 1.8;
-            color: var(--text-light);
-        }
-        .policy-content ul {
-            margin-bottom: 1rem;
-            padding-left: 2rem;
-        }
-        .policy-content li {
-            margin-bottom: 0.5rem;
-            line-height: 1.8;
-            color: var(--text-light);
-        }
-        .last-updated {
-            color: var(--text-light);
-            font-style: italic;
-            margin-bottom: 2rem;
-        }
-    </style>
 </head>
 <body>
-    <nav>
+    <!-- Animated Background -->
+    <div class="bg-gradient"></div>
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav">
         <div class="container nav-container">
             <a href="index.html" class="logo">
                 <img src="logo.png" alt="YourBibleTracker Logo" class="logo-image">
                 <span class="logo-text">YourBibleTracker</span>
             </a>
-            <ul class="nav-links">
-                <li><a href="index.html#features">Features</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="privacy.html">Privacy</a></li>
-                <li><a href="feature-request.html" class="btn-primary">Ideas</a></li>
-            </ul>
+            <div class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="index.html#features">Features</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="index.html#mission">Mission</a></li>
+                    <li><a href="feature-request.html">Ideas</a></li>
+                </ul>
+                <a href="https://apps.apple.com/app/yourbibletracker/id6757244296" class="btn-nav-download">
+                    <span>Download Free</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                    </svg>
+                </a>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
 
-    <div class="policy-content">
-        <h1>Terms of Service</h1>
-        <p class="last-updated">Last Updated: January 2025</p>
-        <p class="last-updated">Effective Date: January 2025</p>
+    <section class="policy-section">
+        <div class="container policy-content">
+            <span class="section-tag">Legal</span>
+            <h1 class="section-title">Terms of <span class="gradient-text">Service</span></h1>
+            <p class="last-updated">Last Updated: January 2025</p>
 
         <p>Welcome to YourBibleTracker. These Terms of Service ("Terms") govern your use of the YourBibleTracker mobile application ("App"). By downloading, installing, or using YourBibleTracker, you agree to be bound by these Terms. If you do not agree to these Terms, please do not use the App.</p>
 
@@ -135,7 +128,7 @@
         <h2>6. Bible Text and Third-Party Content</h2>
 
         <h3>6.1 Bible Text Sources</h3>
-        <p>Bible text is provided through third-party APIs and is subject to their respective copyrights, licenses, and terms of use. We use the API.Bible service to retrieve Scripture text.</p>
+        <p>Bible text is provided through the HelloAO Bible API, offering access to over 1000 Bible translations. The text is subject to their respective copyrights, licenses, and terms of use.</p>
 
         <h3>6.2 Accuracy Disclaimer</h3>
         <p>While we make reasonable efforts to ensure the accuracy of Bible text, we cannot guarantee complete accuracy or freedom from errors. We recommend verifying important passages with a physical Bible or other authoritative sources.</p>
@@ -313,35 +306,51 @@
             <p style="margin: 0; color: var(--text-dark); font-weight: 600;">Our Mission</p>
             <p style="margin: 0.5rem 0 0 0;">YourBibleTracker exists to help people grow closer to God through His Word. We're committed to keeping this app free, accessible, and focused on what matters most: Scripture. Thank you for being part of our community.</p>
         </div>
-    </div>
-
-    <footer>
-        <div class="container footer-content">
-            <div class="footer-section">
-                <h4>YourBibleTracker</h4>
-                <p>Bringing people closer to God's Word</p>
-            </div>
-
-            <div class="footer-section">
-                <h4>Links</h4>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="privacy.html">Privacy Policy</a></li>
-                    <li><a href="terms.html">Terms of Service</a></li>
-                    <li><a href="feature-request.html">Feature Request</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>Contact</h4>
-                <ul>
-                    <li><a href="mailto:yourbibletracker@gmail.com">yourbibletracker@gmail.com</a></li>
-                </ul>
-            </div>
         </div>
+    </section>
 
-        <div class="container footer-bottom">
-            <p>&copy; 2025 YourBibleTracker. Built with ❤️ for God's glory.</p>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <img src="logo.png" alt="YourBibleTracker">
+                        <span>YourBibleTracker</span>
+                    </a>
+                    <p>Bringing people closer to God's Word, one verse at a time.</p>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>App</h4>
+                        <ul>
+                            <li><a href="index.html#features">Features</a></li>
+                            <li><a href="index.html#screenshots">Screenshots</a></li>
+                            <li><a href="https://apps.apple.com/app/yourbibletracker/id6757244296">Download</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="feature-request.html">Request Feature</a></li>
+                            <li><a href="mailto:yourbibletracker@gmail.com">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                            <li><a href="terms.html">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 YourBibleTracker. Made in Switzerland. Built with love for God's glory.</p>
+            </div>
         </div>
     </footer>
 
