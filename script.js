@@ -138,7 +138,13 @@ const observeElements = () => {
 };
 
 // Initialize on page load
-document.addEventListener('DOMContentLoaded', () => {
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        initMobileMenu();
+        observeElements();
+    });
+} else {
+    // DOM already loaded
     initMobileMenu();
     observeElements();
-});
+}

@@ -302,12 +302,16 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
 
 /* Mobile menu open state */
 @media (max-width: 768px) {
+    .nav-container {
+        position: relative;
+    }
+
     .nav-menu {
         display: none;
         position: absolute;
         top: 100%;
-        left: 0;
-        right: 0;
+        left: calc(-1 * var(--container-padding));
+        right: calc(-1 * var(--container-padding));
         background: rgba(10, 10, 15, 0.98);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
@@ -315,6 +319,7 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
         padding: var(--space-lg);
         flex-direction: column;
         gap: var(--space-md);
+        z-index: 1000;
     }
 
     .nav-menu.mobile-open {
