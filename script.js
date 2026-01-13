@@ -95,23 +95,25 @@ function showSuccessMessage() {
     }
 }
 
-// Mobile menu toggle (for future enhancement)
-const createMobileMenu = () => {
-    const nav = document.querySelector('.nav-links');
-    const menuButton = document.createElement('button');
-    menuButton.className = 'mobile-menu-toggle';
-    menuButton.innerHTML = '☰';
-    menuButton.style.display = 'none';
+// Mobile menu toggle
+const initMobileMenu = () => {
+    const menuButton = document.querySelector('.mobile-menu-btn');
+    const navMenu = document.querySelector('.nav-menu');
 
-    if (window.innerWidth <= 768) {
-        menuButton.style.display = 'block';
+    if (menuButton && navMenu) {
+        menuButton.addEventListener('click', () => {
+            navMenu.classList.toggle('mobile-open');
+            menuButton.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('mobile-open');
+                menuButton.classList.remove('active');
+            });
+        });
     }
-
-    menuButton.addEventListener('click', () => {
-        nav.classList.toggle('mobile-open');
-    });
-
-    document.querySelector('.nav-container').appendChild(menuButton);
 };
 
 // Add subtle scroll animations
@@ -137,5 +139,6 @@ const observeElements = () => {
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
+    initMobileMenu();
     observeElements();
 });
