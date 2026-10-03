@@ -55,7 +55,7 @@ if (featureForm) {
                 featureForm.reset();
             } catch (error) {
                 console.error('Error submitting idea:', error);
-                alert('There was an error submitting your idea. Please try again or email us directly at yourbibletracker@gmail.com');
+                alert('There was an error submitting your idea. Please try again or email us directly at info@yourbibletracker.com');
             } finally {
                 resetButton();
             }
@@ -77,7 +77,7 @@ Submitted by: ${ideaData.name}
 Contact email: ${ideaData.email || 'Not provided'}
 Date: ${new Date().toLocaleDateString()}`
             );
-            window.location.href = `mailto:yourbibletracker@gmail.com?subject=${subject}&body=${body}`;
+            window.location.href = `mailto:info@yourbibletracker.com?subject=${subject}&body=${body}`;
             showSuccessMessage();
             featureForm.reset();
             resetButton();

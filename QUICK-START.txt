@@ -66,4 +66,4 @@ You can buy a domain like "bibletracker.app" later ($10-15/year)
 But you don't need one! The free GitHub URL works perfectly.
 
 
-Questions? Email: yourbibletracker@gmail.com
+Questions? Email: info@yourbibletracker.com
